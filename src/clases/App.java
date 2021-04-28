@@ -23,7 +23,7 @@ public class App {
 	
 	//calcularCostoAlquiler();
 	
-	contratarUsuario();
+	//contratarUsuario();
 		
 	}
 	
