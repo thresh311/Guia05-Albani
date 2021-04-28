@@ -22,6 +22,22 @@ public class Usuario {
 		
 	}
 	
+	public void Contratar (Trabajo trabajo) {
+		
+		servicios.add(trabajo);	
+		
+	}
+	
+	public void Contratar (Alquiler alquiler) throws AlquilerNoEntregadoException {
+		
+		if(this.adeudaAlquileres()) {
+			throw new AlquilerNoEntregadoException();
+		}
+		
+		servicios.add(alquiler);	
+		
+	}
+	
 	public void Contratar (Herramienta herramienta, LocalDate fechaInicio, int duracion) throws AlquilerNoEntregadoException {
 		
 		if(this.adeudaAlquileres()) {

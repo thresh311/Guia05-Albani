@@ -3,13 +3,19 @@ package clases;
 public class ServicioEstandar extends Servicio{
 	
 	protected double costoFijo;
+	protected double porcentajeComision;
 
+	public ServicioEstandar (Oficio oficio ,double costo, double porcentaje) {
+		this.oficio = oficio;
+		this.costoFijo = costo;
+		this.porcentajeComision = porcentaje; 
+	}
+	
+	
 	@Override
 	public double costo() {
 
-		double total = this.costoFijo; //+ this.trabajador.comision(this.costoFijo);		
-		
-		return total;
+		return this.costoFijo * (1 + this.porcentajeComision);		
 		
 	}
 	

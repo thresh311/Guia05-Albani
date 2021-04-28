@@ -13,9 +13,15 @@ public class Trabajador {
 	protected double porcentajeComision;
 	protected double costoPorHora;
 	
-	/*public double comision(double costo) {
-		return this.porcentajeComision * costo;
-	}*/
+	
+	public Trabajador (Oficio oficio, String nombre, String email, double porcentaje, double costo) {
+		this.oficio = oficio;
+		this.trabajos = new ArrayList<Trabajo>();
+		this.nombre = nombre;
+		this.email = email;
+		this.porcentajeComision = porcentaje;
+		this.costoPorHora = costo;
+	}
 	
 	public void agregarTrabajo (Trabajo trabajo) throws OficioNoCoincideException, AgendaOcupadaException {
 		

@@ -70,6 +70,14 @@ public class Alquiler implements Contratable{
 		
 	}
 	
+	public void setFechaDevolucion(String fecha) {
+		DateTimeFormatter f1 =  DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		this.fechaDevolucion = LocalDate.parse(fecha,f1);
+	}
+	
+	public void setFechaDevolucion(LocalDate fecha) {
+		this.fechaDevolucion = fecha;
+	}
 	
 	public boolean finalizado () {
 		return this.fechaDevolucion != null;
