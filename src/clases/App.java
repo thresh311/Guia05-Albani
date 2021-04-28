@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import excepciones.AgendaOcupadaException;
+import excepciones.AlquilerNoEntregadoException;
 import excepciones.OficioNoCoincideException;
 
 public class App {
@@ -28,6 +29,59 @@ public class App {
 	
 	private static void contratarUsuario() {
 		
+		Usuario u1 = new Usuario();
+		
+		Herramienta h1 = new Herramienta("Destornillador", 20);
+		
+		Oficio carpinteria = new Oficio("Carpinteria");
+		Oficio electricidad = new Oficio ("Electricidad");
+		
+		ServicioPersonalizado servPer = new ServicioPersonalizado(electricidad, 1000, 200, 800);
+		ServicioEstandar servEst = new ServicioEstandar(carpinteria, 1000, 0.2);
+		
+		//Caso Exito
+		
+		try {
+			//Agrego dos alquileres no devueltos
+			u1.contratar(h1, LocalDate.now(), 10);
+			u1.contratar(h1, "15-01-2021", 10);
+			System.out.println("Alquileres contratados exitosamente");
+			
+			//Agrego dos trabajos
+			u1.contratar(servEst, false, LocalDate.now()); //No urgente
+			u1.contratar(servPer, true, "15-01-2021"); //Urgente
+			System.out.println("Trabajos contratados exitosamente");
+			
+		} catch (AlquilerNoEntregadoException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		
+		//Caso Falla por Alquier No entregado
+		
+		try {
+					
+			u1.contratar(h1, "15-01-2021", 10);
+			
+			
+		} catch (AlquilerNoEntregadoException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		
+		//Devuelvo uno de los alquileres e intento de nuevo
+		
+		u1.getServicios().get(0).registrarFinalizacion();
+		
+		try {
+			
+			u1.contratar(h1, "15-01-2021", 10);
+			System.out.println("Alquiler contratado exitosamente");
+			
+		} catch (AlquilerNoEntregadoException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
 		
 		
 	}
@@ -49,7 +103,7 @@ public class App {
 		System.out.println("Devuelto? " + a2.devuelto());
 		//Alquiler Devuelto
 		Alquiler a3 = new Alquiler("14-04-2021", 10, h1);
-		a3.devuelto(); //Marca que fue devuelto hoy
+		a3.registrarFinalizacion(); //Marca que fue devuelto hoy
 		System.out.println("Costo Alquiler Devuelto: " + a3.costo());
 		System.out.println("Esta en demora? " + a3.enMora());
 		System.out.println("Devuelto? " + a3.devuelto());
